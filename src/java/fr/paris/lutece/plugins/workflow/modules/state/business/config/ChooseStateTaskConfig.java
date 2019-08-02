@@ -1,8 +1,11 @@
 package fr.paris.lutece.plugins.workflow.modules.state.business.config;
 
+import java.util.Map;
+
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import fr.paris.lutece.plugins.workflowcore.business.config.ITaskConfig;
 import fr.paris.lutece.plugins.workflowcore.business.config.TaskConfig;
 
 public class ChooseStateTaskConfig  extends TaskConfig {
@@ -59,5 +62,15 @@ public class ChooseStateTaskConfig  extends TaskConfig {
 	 */
 	public void setIdStateKO(int _nIdStateKO) {
 		this._nIdStateKO = _nIdStateKO;
+	}
+	
+	@Override
+	public ITaskConfig copyConfigWithNewStates(Map<Integer, Integer> mapNewStates) {
+		if ( mapNewStates != null )
+		{
+			_nIdStateOK = mapNewStates.getOrDefault(_nIdStateOK, _nIdStateOK);
+			_nIdStateKO = mapNewStates.getOrDefault(_nIdStateKO, _nIdStateKO);
+		}
+		return this;
 	}
 }
